@@ -97,6 +97,34 @@
             box-shadow: 0 0 20px var(--deep-rose);
         }
 
+        /* Fullscreen Image Overlay Style */
+        #fullscreen-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+
+        #fullscreen-overlay img {
+            max-width: 95%;
+            max-height: 95%;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            animation: zoomIn 0.3s ease-out;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
         .bg-heart {
             position: absolute;
             color: rgba(255, 255, 255, 0.5);
@@ -135,6 +163,10 @@
         <source src="15.mp3" type="audio/mpeg">
     </audio>
 
+    <div id="fullscreen-overlay" onclick="closeImage()">
+        <img id="full-img" src="" alt="Full Screen">
+    </div>
+
     <div id="start-screen" class="wrapper">
         <h1>You Said Yes! ❤️</h1>
         <button class="unlock-btn" onclick="revealMagic()">Unlock My Heart 🔓</button>
@@ -142,10 +174,10 @@
 
     <div id="letter-view">
         <div class="photo-grid">
-            <img src="123 (1).jpeg" alt="1">
-            <img src="123 (2).jpeg" alt="2">
-            <img src="123 (3).jpeg" alt="3">
-            <img src="123 (4).jpeg" alt="4">
+            <img src="123 (1).jpeg" alt="1" onclick="openImage(this.src)">
+            <img src="123 (2).jpeg" alt="2" onclick="openImage(this.src)">
+            <img src="123 (3).jpeg" alt="3" onclick="openImage(this.src)">
+            <img src="123 (4).jpeg" alt="4" onclick="openImage(this.src)">
         </div>
 
         <div class="letter-text">
@@ -162,8 +194,19 @@
     </div>
 
     <script>
-        // Corrected Grammar and Tenses
         const hiddenText = "Since you said yes, my whole world has changed. I can't wait for all the memories we're going to build together. You're my favorite adventure! I love you so much, Javeria. These last 3 years with you have been the best years of my life. You are the best decision I ever made. I hope we stay together until our last breath. I love you and I never want to lose you. You are my world, Javeria; you are the person of my life. I love everything about you. ❤️";
+
+        // Image Fullscreen Functions
+        function openImage(src) {
+            const overlay = document.getElementById('fullscreen-overlay');
+            const fullImg = document.getElementById('full-img');
+            fullImg.src = src;
+            overlay.style.display = 'flex';
+        }
+
+        function closeImage() {
+            document.getElementById('fullscreen-overlay').style.display = 'none';
+        }
 
         function revealMagic() {
             const audio = document.getElementById('music');
@@ -215,7 +258,7 @@
                 if (i < hiddenText.length) {
                     p.innerHTML += hiddenText.charAt(i);
                     i++;
-                    setTimeout(type, 40); // Slightly faster for long text
+                    setTimeout(type, 40);
                 } else {
                     document.getElementById('final-question').style.opacity = '1';
                 }
