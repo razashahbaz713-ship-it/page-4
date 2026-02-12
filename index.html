@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Forever Valentine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(180deg, #ff9a9e 0%, #fecfef 100%);
+            --deep-rose: #ff4d6d;
+            --soft-glow: #ff85a1;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            font-family: 'Quicksand', sans-serif;
+            background: var(--bg-gradient);
+        }
+
+        .wrapper {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.5rem;
+            color: white;
+            text-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+            z-index: 10;
+        }
+
+        .unlock-btn {
+            background: white;
+            color: var(--deep-rose);
+            border: none;
+            padding: 20px 60px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.4);
+            transition: 0.4s;
+            z-index: 10;
+        }
+
+        #letter-view {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.98);
+            padding: 20px;
+            border-radius: 30px;
+            box-shadow: 0 30px 100px rgba(0,0,0,0.25);
+            text-align: center;
+            z-index: 100;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 5px;
+        }
+
+        .photo-grid img {
+            width: 100%;
+            aspect-ratio: 1 / 1; 
+            object-fit: cover; 
+            border-radius: 12px;
+            border: 3px solid white;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .photo-grid img:hover {
+            transform: scale(1.05) rotate(2deg);
+            border-color: var(--deep-rose);
+            box-shadow: 0 0 20px var(--deep-rose);
+        }
+
+        .bg-heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.5);
+            pointer-events: none;
+            z-index: 1;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        #final-question {
+            opacity: 0;
+            transition: 1s ease-in;
+            margin-top: 15px;
+        }
+
+        .yes-btn {
+            background: var(--deep-rose);
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <audio id="music" loop>
+        <source src="15.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="start-screen" class="wrapper">
+        <h1>You Said Yes! ❤️</h1>
+        <button class="unlock-btn" onclick="revealMagic()">Unlock My Heart 🔓</button>
+    </div>
+
+    <div id="letter-view">
+        <div class="photo-grid">
+            <img src="123 (1).jpeg" alt="1">
+            <img src="123 (2).jpeg" alt="2">
+            <img src="123 (3).jpeg" alt="3">
+            <img src="123 (4).jpeg" alt="4">
+        </div>
+
+        <div class="letter-text">
+            <h2 style="font-family: 'Dancing Script'; color: var(--deep-rose); font-size: 2rem; margin: 0;">My One & Only,</h2>
+            <p id="typewriter" style="font-weight: 500; color: #444; line-height: 1.5; font-size: 1rem; margin: 10px 0; min-height: 50px; text-align: justify;"></p>
+            
+            <div id="final-question">
+                <p style="margin-bottom: 8px; font-weight: bold; font-size: 0.95rem;">Will you be my forever?</p>
+                <button class="yes-btn" onclick="megaExplosion()">YES! 💖</button>
+            </div>
+            
+            <div style="font-family: 'Dancing Script'; font-size: 1.8rem; color: var(--deep-rose); margin-top: 10px;">I Love You, Javeria!</div>
+        </div>
+    </div>
+
+    <script>
+        // Corrected Grammar and Tenses
+        const hiddenText = "Since you said yes, my whole world has changed. I can't wait for all the memories we're going to build together. You're my favorite adventure! I love you so much, Javeria. These last 3 years with you have been the best years of my life. You are the best decision I ever made. I hope we stay together until our last breath. I love you and I never want to lose you. You are my world, Javeria; you are the person of my life. I love everything about you. ❤️";
+
+        function revealMagic() {
+            const audio = document.getElementById('music');
+            audio.play().catch(e => console.log("Audio needs user interaction"));
+            
+            document.getElementById('start-screen').classList.add('hidden');
+            for (let i = 0; i < 80; i++) { createBurstHeart(); }
+            setInterval(createFloatingHeart, 400);
+            setTimeout(() => {
+                document.getElementById('letter-view').style.display = 'block';
+                startTypewriter();
+            }, 800);
+        }
+
+        function createBurstHeart() {
+            const heart = document.createElement('div');
+            heart.style.position = 'absolute';
+            heart.style.top = '50%';
+            heart.style.left = '50%';
+            heart.style.zIndex = '200';
+            heart.style.pointerEvents = 'none';
+            heart.innerText = ['❤️', '💖', '💗', '✨'][Math.floor(Math.random() * 4)];
+            const x = (Math.random() - 0.5) * 1600; 
+            const y = (Math.random() - 0.5) * 1600; 
+            heart.animate([
+                { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
+                { transform: `translate(${x}px, ${y}px) scale(${Math.random() * 2 + 1}) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+            ], { duration: 1500, easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)', fill: 'forwards' });
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 2000);
+        }
+
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'bg-heart';
+            heart.innerText = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            const duration = Math.random() * 5 + 5;
+            heart.style.animationDuration = duration + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), duration * 1000);
+        }
+
+        function startTypewriter() {
+            const p = document.getElementById('typewriter');
+            let i = 0;
+            function type() {
+                if (i < hiddenText.length) {
+                    p.innerHTML += hiddenText.charAt(i);
+                    i++;
+                    setTimeout(type, 40); // Slightly faster for long text
+                } else {
+                    document.getElementById('final-question').style.opacity = '1';
+                }
+            }
+            type();
+        }
+
+        function megaExplosion() {
+            for (let i = 0; i < 150; i++) { setTimeout(createBurstHeart, i * 10); }
+            const btn = document.querySelector('.yes-btn');
+            btn.innerText = "ALWAYS! 🥰";
+            btn.disabled = true;
+        }
+    </script>
+</body>
+</html>
