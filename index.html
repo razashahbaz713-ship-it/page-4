@@ -11,7 +11,6 @@
             --bg-gradient: linear-gradient(180deg, #ff9a9e 0%, #fecfef 100%);
             --deep-rose: #ff4d6d;
             --soft-glow: #ff85a1;
-            --gold: #d4af37;
         }
 
         * {
@@ -97,35 +96,37 @@
             cursor: pointer;
         }
 
-        /* --- SPECIAL PARAGRAPH STYLING --- */
-        .special-box {
-            background: #fffafa;
-            border: 2px dashed var(--soft-glow);
-            border-radius: 20px;
-            padding: 15px;
+        /* --- STYLING FOR YOUR SPECIAL PARAGRAPH --- */
+        .special-note-container {
             margin: 20px 0;
+            padding: 15px;
+            background: #fffafa;
+            border-radius: 20px;
+            border: 2px dashed var(--soft-glow);
             position: relative;
-            box-shadow: 0 5px 15px rgba(255, 133, 161, 0.1);
+            opacity: 0; /* Starts hidden, revealed by JS */
+            transition: opacity 1.5s ease-in;
         }
 
-        .special-box::before {
-            content: '✨';
+        .special-note-container::before {
+            content: "✨";
             position: absolute;
-            top: -12px;
+            top: -15px;
             left: 50%;
             transform: translateX(-50%);
             background: white;
             padding: 0 10px;
         }
 
-        .special-text {
-            font-style: italic;
+        .special-note-text {
             color: #555;
+            font-size: 0.95rem;
             line-height: 1.6;
-            font-size: 0.9rem;
+            font-style: italic;
+            margin: 0;
         }
 
-        /* ---------------------------------- */
+        /* ----------------------------------------- */
 
         @media (max-width: 480px) {
             h1 { font-size: 2.5rem; }
@@ -216,14 +217,14 @@
 
         <div class="letter-text">
             <h2 style="font-family: 'Dancing Script'; color: var(--deep-rose); font-size: 1.8rem; margin: 0;">My One & Only,</h2>
+            
             <p id="typewriter" style="font-weight: 500; color: #444; line-height: 1.4; font-size: 0.95rem; margin: 10px 0; min-height: 50px; text-align: justify;"></p>
             
-            <div id="special-para" style="opacity: 0; transition: 1.5s ease-in;">
-                <div class="special-box">
-                    <p class="special-text">
-                        "If I could give you one thing in life, I would give you the ability to see yourself through my eyes. Only then would you realize how truly special you are to me. You are the poem I never knew how to write, and this life is the story I always wanted to tell."
-                    </p>
-                </div>
+            <div id="special-note" class="special-note-container">
+                <p class="special-note-text">
+                    YOUR SPECIAL MESSAGE GOES HERE: "Javeria, every moment with you is a treasure. You make my life beautiful just by being in it..." 
+                    (You can delete this and write as much as you want here!)
+                </p>
             </div>
             <div id="final-question">
                 <p style="margin-bottom: 10px; font-weight: bold;">Will you be my forever?</p>
@@ -302,9 +303,9 @@
                     i++;
                     setTimeout(type, 35);
                 } else {
-                    // Show special paragraph after typewriter finishes
-                    document.getElementById('special-para').style.opacity = '1';
-                    // Show final question after a short delay
+                    // Reveal the special note container
+                    document.getElementById('special-note').style.opacity = '1';
+                    // Show final question shortly after
                     setTimeout(() => {
                         document.getElementById('final-question').style.opacity = '1';
                     }, 1000);
