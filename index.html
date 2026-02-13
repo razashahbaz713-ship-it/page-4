@@ -11,6 +11,7 @@
             --bg-gradient: linear-gradient(180deg, #ff9a9e 0%, #fecfef 100%);
             --deep-rose: #ff4d6d;
             --soft-glow: #ff85a1;
+            --gold: #d4af37;
         }
 
         * {
@@ -41,7 +42,7 @@
 
         h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 3.5rem; /* Responsive size */
+            font-size: 3.5rem;
             color: white;
             text-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
             z-index: 10;
@@ -96,14 +97,42 @@
             cursor: pointer;
         }
 
-        /* Mobile specific adjustments */
+        /* --- SPECIAL PARAGRAPH STYLING --- */
+        .special-box {
+            background: #fffafa;
+            border: 2px dashed var(--soft-glow);
+            border-radius: 20px;
+            padding: 15px;
+            margin: 20px 0;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(255, 133, 161, 0.1);
+        }
+
+        .special-box::before {
+            content: '✨';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 0 10px;
+        }
+
+        .special-text {
+            font-style: italic;
+            color: #555;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        /* ---------------------------------- */
+
         @media (max-width: 480px) {
             h1 { font-size: 2.5rem; }
             #letter-view { width: 95%; padding: 15px; }
             .unlock-btn { padding: 12px 30px; font-size: 1rem; }
         }
 
-        /* Fullscreen Overlay */
         #fullscreen-overlay {
             display: none;
             position: fixed;
@@ -189,6 +218,13 @@
             <h2 style="font-family: 'Dancing Script'; color: var(--deep-rose); font-size: 1.8rem; margin: 0;">My One & Only,</h2>
             <p id="typewriter" style="font-weight: 500; color: #444; line-height: 1.4; font-size: 0.95rem; margin: 10px 0; min-height: 50px; text-align: justify;"></p>
             
+            <div id="special-para" style="opacity: 0; transition: 1.5s ease-in;">
+                <div class="special-box">
+                    <p class="special-text">
+                        "If I could give you one thing in life, I would give you the ability to see yourself through my eyes. Only then would you realize how truly special you are to me. You are the poem I never knew how to write, and this life is the story I always wanted to tell."
+                    </p>
+                </div>
+            </div>
             <div id="final-question">
                 <p style="margin-bottom: 10px; font-weight: bold;">Will you be my forever?</p>
                 <button class="yes-btn" onclick="megaExplosion()">YES! 💖</button>
@@ -217,7 +253,6 @@
             audio.play().catch(e => console.log("Audio needs interaction"));
             
             document.getElementById('start-screen').classList.add('hidden');
-            // Reduced count for mobile performance
             for (let i = 0; i < 50; i++) { createBurstHeart(); }
             setInterval(createFloatingHeart, 500);
             setTimeout(() => {
@@ -234,8 +269,6 @@
             heart.style.zIndex = '200';
             heart.style.pointerEvents = 'none';
             heart.innerText = ['❤️', '💖', '💗', '✨'][Math.floor(Math.random() * 4)];
-            
-            // Adjust explosion radius for smaller screens
             const radius = window.innerWidth < 480 ? 400 : 800;
             const x = (Math.random() - 0.5) * radius; 
             const y = (Math.random() - 0.5) * radius; 
@@ -269,7 +302,12 @@
                     i++;
                     setTimeout(type, 35);
                 } else {
-                    document.getElementById('final-question').style.opacity = '1';
+                    // Show special paragraph after typewriter finishes
+                    document.getElementById('special-para').style.opacity = '1';
+                    // Show final question after a short delay
+                    setTimeout(() => {
+                        document.getElementById('final-question').style.opacity = '1';
+                    }, 1000);
                 }
             }
             type();
