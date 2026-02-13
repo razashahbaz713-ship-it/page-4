@@ -96,16 +96,21 @@
             cursor: pointer;
         }
 
-        /* --- STYLING FOR YOUR SPECIAL PARAGRAPH --- */
+        /* --- ALIGNMENT FOR YOUR SPECIAL PARAGRAPH --- */
         .special-note-container {
             margin: 20px 0;
-            padding: 15px;
+            padding: 20px 15px;
             background: #fffafa;
             border-radius: 20px;
             border: 2px dashed var(--soft-glow);
             position: relative;
-            opacity: 0; /* Starts hidden, revealed by JS */
+            opacity: 0;
             transition: opacity 1.5s ease-in;
+            /* Center the container content */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .special-note-container::before {
@@ -121,9 +126,11 @@
         .special-note-text {
             color: #555;
             font-size: 0.95rem;
-            line-height: 1.6;
+            line-height: 1.8; /* Better spacing for poetry */
             font-style: italic;
             margin: 0;
+            text-align: center; /* Aligns the text to center */
+            width: 100%;
         }
 
         /* ----------------------------------------- */
@@ -222,13 +229,14 @@
             
             <div id="special-note" class="special-note-container">
                 <p class="special-note-text">
-                    SPECIAL MESSAGE : "KABHI TUM NADAN KABHI TUM SCHI LGTI HO
-                    TUM JAISI BHI HO MUJHE ACHI LGTI HO
-                    DUNIYA KI HAR KHUSHI WAARI JASKTI HAI TUM PR 
-                    TUM CHAND JASI NAE BLKAY TUM CHAND LAGTI HO" 
-                    (You can delete this and write as much as you want here!)
+                    SPECIAL MESSAGE :<br>
+                    "KABHI TUM NADAN KABHI TUM SCHI LGTI HO<br>
+                    TUM JAISI BHI HO MUJHE ACHI LGTI HO<br>
+                    DUNIYA KI HAR KHUSHI WAARI JASKTI HAI TUM PR<br>
+                    TUM CHAND JASI NAE BLKAY TUM CHAND LAGTI HO"
                 </p>
             </div>
+
             <div id="final-question">
                 <p style="margin-bottom: 10px; font-weight: bold;">Will you be my forever?</p>
                 <button class="yes-btn" onclick="megaExplosion()">YES! 💖</button>
@@ -306,9 +314,7 @@
                     i++;
                     setTimeout(type, 35);
                 } else {
-                    // Reveal the special note container
                     document.getElementById('special-note').style.opacity = '1';
-                    // Show final question shortly after
                     setTimeout(() => {
                         document.getElementById('final-question').style.opacity = '1';
                     }, 1000);
@@ -326,4 +332,3 @@
     </script>
 </body>
 </html>
-
